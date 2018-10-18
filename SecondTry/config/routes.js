@@ -27,6 +27,8 @@ module.exports.routes = {
   '/': {
     view: 'pages/homepage'
   },
+  '/item/dropitem/:itemid': 'ItemController.dropWeaponTest',
+  '/items': {view: 'pages/homepage'}
 
   /***************************************************************************
   *                                                                          *
