@@ -15,8 +15,4 @@ module.exports = {
         });
     },
 
-    createItem: function(req, res) {
-        await Item.createItem()
-    }
-
 };
