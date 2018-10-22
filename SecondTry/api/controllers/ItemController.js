@@ -12,7 +12,7 @@ module.exports = {
         res.json({
             hello: "world",
             item: itemid
-        });
+        })
     },
 
 };
