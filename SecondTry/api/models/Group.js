@@ -35,6 +35,9 @@ module.exports = {
       type: 'json',
       columnType: 'array',
       required: false
+    },
+    room: {
+      type: 'ref'
     }
   },
 
