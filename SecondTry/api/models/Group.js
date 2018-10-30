@@ -38,12 +38,12 @@ module.exports = {
     },
     room: {
       type: 'ref'
+    },
+    keys: {
+      type: 'json',
+      columnType: 'array'
     }
   },
-
-  getType: function() {
-    return 'Group';
-  }
-
+  
 };
 

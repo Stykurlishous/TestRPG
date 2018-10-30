@@ -14,8 +14,16 @@ module.exports.routes = {
     view: 'pages/homepage'
   },
 
-  /** Item Routes */
-  '/item/dropitem/:itemid': 'ItemController.dropWeaponTest',
+  /** Area Routes */
+  '/area/create/:slackid': 'AreaController.generateAlpha_01',
+
+  /** Room Routes */
+  '/room/examine/:slackid': 'RoomController.examine',
+  '/room/sections/:slackid': 'RoomController.listSections',
+  '/room/travel/:slackid/:direction': 'RoomController.travel',
+
+  /** Section Routes */
+  '/section/travel/:': 'SectionController.travel',
 
   /** Group Routes */
   '/group/create/:slackid/:slackname/:playerid/:playername': 'GroupController.createNewGroup',
@@ -23,6 +31,9 @@ module.exports.routes = {
 
   /** Player Routes */
   'player/getname/:slackid': 'PlayerController.getPlayerName',
-  '/player/getstats/:slackid': 'PlayerController.getPlayerStats'
+  '/player/getstats/:slackid': 'PlayerController.getPlayerStats',
+
+  /** Item Routes */
+  '/item/dropitem/:itemid': 'ItemController.dropWeaponTest',
 
 };

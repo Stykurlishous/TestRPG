@@ -26,22 +26,18 @@ module.exports = {
     },
     isQuestItem: {
       type: 'boolean',
-      required: true
+      defaultsTo: false
     },
     instanceType: {
       type: 'string',
-      isIn: ['Armor', 'Weapon', 'Tool', 'Quest'],
+      isIn: ['Armor', 'Weapon', 'Material', 'Quest'],
       required: true
     },
     stats: {
       type: 'ref',
-      required: true
+      required: false
     }
-
   },
 
-  getType: function() {
-    return 'Item';
-  }
 };
 

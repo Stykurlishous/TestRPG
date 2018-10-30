@@ -1,8 +1,9 @@
 /**
  * Area.js
  *
- * @description :: A model definition.  Represents a database table/collection/etc.
- * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
+ * @description :: Represents a collection of rooms.  An area must always have a starting place that controlls how 
+ *                 a player enters a new area.
+ * 
  */
 
 module.exports = {
@@ -16,6 +17,14 @@ module.exports = {
     description: {
       type: 'string',
       required: true
+    },
+    startingRoom: {
+      type: 'string',
+      required: true
+    },
+    decisions: {
+      type: 'json',
+      columnType: 'array'
     }
   },
 

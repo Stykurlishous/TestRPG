@@ -1,8 +1,8 @@
 /**
  * Entity.js
  *
- * @description :: A model definition.  Represents a database table/collection/etc.
- * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
+ * @description :: Defines a character. Can be the player, NPC, Enemy, or Quest. 
+ * 
  */
 
 module.exports = {
@@ -21,6 +21,14 @@ module.exports = {
       type: 'string',
       required: true
     },
+    isAlive: {
+      type: 'boolean',
+      defaultsTo: true
+    },
+    isFirstEncounter: {
+      type: 'boolean',
+      defaultsTo: true
+    },
     instanceType: {
       type: 'string',
       isIn: ['Player', 'NPC', 'Enemy', 'Quest']
@@ -31,20 +39,16 @@ module.exports = {
       required: false
     },
     inventory: {
-      type: 'json',
-      columnType: 'array',
-      required: false
+      type: 'ref'
     },
     stats: {
       type: 'ref',
       required: false
+    },
+    decisions: {
+      type: 'json',
+      columnType: 'array'
     }
-
   },
 
-  getType: function() {
-    return 'Entity';
-  }
-
 };
-

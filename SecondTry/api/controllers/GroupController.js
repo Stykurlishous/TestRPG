@@ -1,13 +1,22 @@
 /**
  * GroupControllerController
  *
- * @description :: Server-side actions for handling incoming requests.
- * @help        :: See https://sailsjs.com/docs/concepts/actions
+ * @description :: Defineds group interactions including battles. 
+ * 
  */
 
 module.exports = {
   
     createNewGroup: async function (req, res) {
+        var foundGroup = await Group.find({
+            id: req.param('slackid')
+        })[0];
+        if (foundGroup !== null) {
+            return res.json({
+                groupFound: foundGroup
+            });
+        };
+
         var newStats = await Stats.create({}).fetch();
         
         var newPlayer = await Entity.create({
@@ -29,7 +38,7 @@ module.exports = {
             quests: {}
         }).fetch();
         
-        res.json({
+        return res.json({
             Player: 'Hello, ' + newPlayer.name + '! Welcome to the Test RPG',
             groupCreated: newGroup,
             newPlayer: newPlayer
@@ -41,9 +50,13 @@ module.exports = {
             id: req.param('slackid')
         });
 
-        res.json({
-            groupFound: foundGroup
+        return res.json({
+            groupFound: foundGroup[0]
         });
+    },
+
+    battle: async function(req, res) {
+
     }
 
 };

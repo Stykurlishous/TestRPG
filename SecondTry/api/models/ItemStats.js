@@ -14,18 +14,20 @@ module.exports = {
     },
     instanceType: {
       type: 'String',
-      isIn: ['Armor', 'Weapon', 'Tool', 'Quest'],
+      isIn: ['Armor', 'Weapon', 'Material', 'Quest'],
       required: true
     },
-    level: {
+    subType: {
+      type: 'String',
+      isIn: ['Helmet', 'Body', 'OneHanded', 'TwoHanded', 'Dagger', 'Bow', 'Staff', 'Shield', 'MainQuest', 'SideQuest'],
+      required: true
+    },
+    baseLevel: {
       type: 'number'
+    },
+    scaling: {
+      type: 'ref'
     }
-
   },
 
-  getType: function() {
-    return 'ItemStats'
-  }
-
 };
-
