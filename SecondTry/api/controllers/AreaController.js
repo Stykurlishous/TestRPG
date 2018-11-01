@@ -7,10 +7,8 @@
 
 module.exports = {
   
-    generateAlpha_01: async function (req, res) {
-        var activeGroup = await Group.find({
-            id: req.param('slackid')
-        });
+    generateAlpha_01: async function(req, res) {
+        var activeGroup = await sails.helpers.getActiveGroup(req.param('slackid'));
         
         // Area
         var alpha_01 = await Area.create({
@@ -28,13 +26,19 @@ module.exports = {
                 0: 'alpha_01-R0-0',
                 1: 'alpha_01-R0-1'
             },
-            north: 'alpha_01-R1'
+            north: {
+                description: 'head out the door',
+                name: 'alpha_01-R1'
+            }
         }).fetch();
         var porchRoom = await Room.create({
             name: 'alpha_01-R1',
             description: 'You step out onto the porch outside your cabin. A small dirt road cuts through the sleepy village right up to the steps.',
             area: alpha_01,
-            south: 'alpha_01-R0'
+            south: {
+                description: 'head inside your cabin',
+                name: 'alpha_01-R0'
+            }
         }).fetch();
 
         // Sections
@@ -62,6 +66,22 @@ module.exports = {
         await Group.update({id: req.param('slackid')}, {room: startingRoom});
         return res.json({
             group: activeGroup
+        });
+    },
+
+    clearAll: async function(req, res) {
+        await Area.destroy({});
+        await Room.destroy({});
+        await Section.destroy({});
+        await Direction.destroy({});
+        await Decision.destroy({});
+        await Key.destroy({});
+        await Group.destroy({});
+        await Entity.destroy({});
+        await Stats.destroy({});
+
+        return res.json({
+            success: true
         });
     },
 

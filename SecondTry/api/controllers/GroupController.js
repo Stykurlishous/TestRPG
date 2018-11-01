@@ -8,9 +8,7 @@
 module.exports = {
   
     createNewGroup: async function (req, res) {
-        var foundGroup = await Group.find({
-            id: req.param('slackid')
-        })[0];
+        var foundGroup = await sails.helpers.getActiveGroup(req.param('slackid'));
         if (foundGroup !== null) {
             return res.json({
                 groupFound: foundGroup

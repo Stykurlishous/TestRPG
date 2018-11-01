@@ -14,7 +14,12 @@ module.exports = {
       id: inputs.slackid
     });
 
-    return exits.success(activeGroup);
+    for (var key in activeGroup) {
+      if (activeGroup.hasOwnProperty(key)) {
+        return exits.success(activeGroup[0]);
+      }
+    }
+    return exits.success(null);
 
   }
 };

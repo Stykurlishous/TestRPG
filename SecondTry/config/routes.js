@@ -16,9 +16,11 @@ module.exports.routes = {
 
   /** Area Routes */
   '/area/create/:slackid': 'AreaController.generateAlpha_01',
+  '/area/clearall': 'AreaController.clearAll',
 
   /** Room Routes */
   '/room/examine/:slackid': 'RoomController.examine',
+  '/room/rooms/:slackid': 'RoomController.listNextRooms',
   '/room/sections/:slackid': 'RoomController.listSections',
   '/room/travel/:slackid/:direction': 'RoomController.travel',
 
@@ -30,7 +32,7 @@ module.exports.routes = {
   '/group/fetch/:slackid': 'GroupController.getGroup',
 
   /** Player Routes */
-  'player/getname/:slackid': 'PlayerController.getPlayerName',
+  '/player/getname/:slackid': 'PlayerController.getPlayerName',
   '/player/getstats/:slackid': 'PlayerController.getPlayerStats',
 
   /** Item Routes */

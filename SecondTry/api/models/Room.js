@@ -52,16 +52,16 @@ module.exports = {
       columnType: 'array'
     },
     north: {
-      type: 'string'
+      type: 'ref'
     },
     east: {
-      type: 'string'
+      type: 'ref'
     },
     south: {
-      type: 'string'
+      type: 'ref'
     },
     west: {
-      type: 'string'
+      type: 'ref'
     }
   },
 

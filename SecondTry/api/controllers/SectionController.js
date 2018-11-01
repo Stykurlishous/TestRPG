@@ -8,9 +8,7 @@
 module.exports = {
   
     travel: async function (req, res) {
-        var activeGroup = await Group.find({
-            id: req.param('slackid')
-        })[0];
+        var activeGroup = await sails.helpers.getActiveGroup(req.param('slackid'));
     }
 
 };
