@@ -23,49 +23,92 @@ module.exports = {
             description: 'Your small cabin. Old but familiar.',
             area: alpha_01,
             sections: {
-                0: 'alpha_01-R0-0',
-                1: 'alpha_01-R0-1'
+                0: {
+                    description: 'Examine your desk',
+                    name: 'alpha_01-R0-0'
+                },
+                1: {
+                    description: 'Examine your door',
+                    name: 'alpha_01-R0-1'
+                }
             },
-            north: {
-                description: 'head out the door',
-                name: 'alpha_01-R1'
-            }
         }).fetch();
         var porchRoom = await Room.create({
             name: 'alpha_01-R1',
-            description: 'You step out onto the porch outside your cabin. A small dirt road cuts through the sleepy village right up to the steps.',
+            description: 'You are on on the porch outside your cabin. A small dirt road cuts through the sleepy village right up to the steps.',
             area: alpha_01,
             south: {
-                description: 'head inside your cabin',
-                name: 'alpha_01-R0'
+                description: 'Head inside your cabin',
+                name: 'alpha_01-R2'
+            },
+            north: {
+                description: 'Step out onto the road',
+                name: 'alpha_01-R3'
+            }
+        }).fetch();
+        var cabinRoom = await Room.create({
+            name: 'alpha_01-R2',
+            description: 'Your small cabin. Old but familiar.',
+            area: alpha_01,
+            sections: {
+                0: {
+                    description: 'Examine your desk',
+                    name: 'alpha_01-R0-0'
+                }
+            },
+            north: {
+                description: 'Head out your front door',
+                name: 'alpha_01-R1'
+            }
+        }).fetch();
+        var roadRoom = await Room.create({
+            name: 'alpha_01-R3',
+            description: 'You are on the road outside your cabin. You look around and see the small village of Edgewater.',
+            area: alpha_01,
+            south: {
+                description: 'Step back onto your porth',
+                name: 'alpha_01-R1'
             }
         }).fetch();
 
         // Sections
         var srSection0 = await Section.create({
-            id: 'alpha_01-R0-0',
+            name: 'alpha_01-R0-0',
+            isOneTime: false,
+            isExit: true,
             description: 'A small desk',
-            room: startingRoom,
+            room: startingRoom
         }).fetch();
         var srSection1 = await Section.create({
-            id: 'alpha_01-R0-1',
+            name: 'alpha_01-R0-1',
             description: 'The old, worn door of your cabin. As you look, you hear a knock on the door',
+            isOneTime: true,
             room: startingRoom,
+            zero: {
+                description: 'Answer the door',
+                name: 'alpha_01-R0-2'
+            },
+            one: {
+                description: 'Do nothing',
+                name: 'alpha_01-R0-3'
+            }
         }).fetch();
         var srSection2 = await Section.create({
-            id: 'alpha_01-R0-2',
+            name: 'alpha_01-R0-2',
+            isExit: true,
             description: 'You approach and open the door',
-            room: porchRoom,
+            room: porchRoom
         }).fetch();
         var srSection3 = await Section.create({
-            id: 'alpha_01-R0-3',
+            name: 'alpha_01-R0-3',
+            isExit: true,
             description: 'You wait until you hear footsteps fading away',
             room: startingRoom,
         }).fetch();
 
         await Group.update({id: req.param('slackid')}, {room: startingRoom});
         return res.json({
-            group: activeGroup
+            success: true
         });
     },
 
@@ -73,7 +116,6 @@ module.exports = {
         await Area.destroy({});
         await Room.destroy({});
         await Section.destroy({});
-        await Direction.destroy({});
         await Decision.destroy({});
         await Key.destroy({});
         await Group.destroy({});

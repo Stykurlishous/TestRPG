@@ -8,21 +8,23 @@
 module.exports = {
 
   attributes: {
-    id: {
+    name: {
       type: 'string',
       unique: true,
       required: true
     },
+    isOneTime: {
+      type: 'boolean'
+    },
     isModified: {
-      type: 'boolean',
-      defaultsTo: false
+      type: 'boolean'
+    },
+    isExit: {
+      type: 'boolean'
     },
     description: {
       type: 'string',
       required: true
-    },
-    isExit: {
-      type: 'boolean'
     },
     room: {
       type: 'ref',
@@ -41,17 +43,17 @@ module.exports = {
       type: 'ref'
     },
     //soft lookups to other sections
-    optionZero: {
-      type: 'string'
+    zero: {
+      type: 'ref'
     },
-    optionOne: {
-      type: 'string'
+    one: {
+      type: 'ref'
     },
-    optionTwo: {
-      type: 'string'
+    two: {
+      type: 'ref'
     },
-    optionThree: {
-      type: 'string'
+    three: {
+      type: 'ref'
     },
   },
 

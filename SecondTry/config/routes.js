@@ -22,10 +22,13 @@ module.exports.routes = {
   '/room/examine/:slackid': 'RoomController.examine',
   '/room/rooms/:slackid': 'RoomController.listNextRooms',
   '/room/sections/:slackid': 'RoomController.listSections',
+  '/room/entersection/:slackid/:sectionname': 'RoomController.enterSection',
   '/room/travel/:slackid/:direction': 'RoomController.travel',
 
   /** Section Routes */
-  '/section/travel/:': 'SectionController.travel',
+  '/section/examine/:slackid': 'SectionController.examine',
+  '/section/sections/:slackid': 'SectionController.listSections',
+  '/section/travel/:slackid/:sectionname': 'SectionController.travel',
 
   /** Group Routes */
   '/group/create/:slackid/:slackname/:playerid/:playername': 'GroupController.createNewGroup',

@@ -18,60 +18,55 @@ module.exports = {
     listNextRooms: async function (req, res) {
         var activeGroup = await sails.helpers.getActiveGroup(req.param('slackid'));
 
-        var northRoom, eastRoom, southRoom, westRoom = null;
-        if (activeGroup.room.north !== null) {
-            northRoom = await Room.find({name: activeGroup.room.north.name});
-        }
-        if (activeGroup.room.east !== null) {
-            eastRoom = await Room.find({name: activeGroup.room.east.name});
-        }
-        if (activeGroup.room.south !== null) {
-            southRoom = await Room.find({name: activeGroup.room.south.name});
-        }
-        if (activeGroup.room.west !== null) {
-            westRoom = await Room.find({name: activeGroup.room.west.name});
-        }
-
         return res.json({
-            north: northRoom[0] ? northRoom[0] : null,
-            east: eastRoom[0] ? eastRoom[0] : null,
-            south: southRoom[0] ? southRoom[0] : null,
-            west: westRoom[0] ? westRoom[0] : null
+            north: activeGroup.room.north,
+            east: activeGroup.room.east,
+            south: activeGroup.room.south,
+            west: activeGroup.room.west
         });
     },
     
     listSections: async function(req, res) {
         var activeGroup = await sails.helpers.getActiveGroup(req.param('slackid'));
 
-        var sectionIds = [];
+        var sections= [];
         for (var index in activeGroup.room.sections) {
-            sectionIds.push(activeGroup.room.sections[index])
+            sections.push(activeGroup.room.sections[index])
         }
-        var availableSections = await Section.find({
-            id: sectionIds
-        });
+
+        if (sections.length === 0) {
+            return res.json({
+                sections: null
+            });
+        }
 
         return res.json({
-            sections: availableSections
+            sections
+        });
+    },
+
+    enterSection: async function(req, res) {
+        var section = await Section.find({name: req.param('sectionname')});
+        await Group.update({id: req.param('slackid')}, {section: section[0]});
+        return res.json({
+            description: section[0].description
         });
     },
 
     travel: async function(req, res) {
-        var activeGroup = await Group.find({
-            id: req.param('slackid')
-        });
+        var activeGroup = await sails.helpers.getActiveGroup(req.param('slackid'));
 
         var direction = req.param('direction');
-        var currentRoom = activeGroup[0].room;
+        var currentRoom = activeGroup.room;
 
         if (currentRoom[direction] !== null) {
-            foundRoom = await Room.find({
-                name: currentRoom[direction]
+            var foundRoom = await Room.find({
+                name: currentRoom[direction].name
             });
             await Group.update({id: req.param('slackid')}, {room: foundRoom[0]});
 
             return res.json({
-                nextRoom: foundRoom
+                nextRoom: foundRoom[0]
             });
         };
 
